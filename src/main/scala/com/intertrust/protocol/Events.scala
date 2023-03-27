@@ -1,10 +1,8 @@
 package com.intertrust.protocol
 
-import java.time.Instant
-
 import enumeratum.{Enum, EnumEntry}
 
-import scala.collection.immutable.IndexedSeq
+import java.time.Instant
 
 sealed trait TurbineStatus extends EnumEntry
 

@@ -1,15 +1,17 @@
 name := "backend-test-task"
 
-version := "1.0"
+version := "2.0"
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.13.10"
 
-lazy val akkaVersion = "2.5.19"
+val zioVersion = "2.0.10"
 
 libraryDependencies ++= Seq(
-  "com.beachape" %% "enumeratum" % "1.5.13",
-  "com.typesafe.akka" %% "akka-actor" % akkaVersion,
-  "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
-  "ch.qos.logback" % "logback-classic" % "1.2.3",
-  "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+  "com.beachape" %% "enumeratum" % "1.7.2",
+  "dev.zio" %% "zio" % zioVersion,
+  "dev.zio" %% "zio-streams" % zioVersion,
+  "dev.zio" %% "zio-test" % zioVersion % Test,
+  "dev.zio" %% "zio-test-sbt" % zioVersion % Test,
 )
+
+testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")

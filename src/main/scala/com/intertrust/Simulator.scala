@@ -1,22 +1,18 @@
 package com.intertrust
 
-import akka.actor.{ActorSystem, Props}
-import com.intertrust.actors.AlertsActor
-import com.intertrust.parsers.{MovementEventParser, TurbineEventParser}
+import com.intertrust.parsers.{MovementEventStream, TurbineEventStream}
+import com.intertrust.processing.AlertsSink
+import zio.{Scope, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 import scala.io.Source
 
-object Simulator {
-  def main(args: Array[String]): Unit = {
-    val system = ActorSystem("simulator")
+object Simulator extends ZIOAppDefault {
+  override def run: ZIO[ZIOAppArgs with Scope, Any, Any] = {
+    val movementEvents = MovementEventStream.fromSource(Source.fromURL(getClass.getResource("movements.cvs")))
+    val turbineEvents = TurbineEventStream.fromSource(Source.fromURL(getClass.getResource("movements.cvs")))
+    val alertsSink = AlertsSink.console
 
-    val alertsActor = system.actorOf(Props(classOf[AlertsActor]), "alerts")
-
-    val movementEvents = new MovementEventParser().parseEvents(Source.fromInputStream(getClass.getResourceAsStream("movements.cvs")))
-    val turbineEvents = new TurbineEventParser().parseEvents(Source.fromInputStream(getClass.getResourceAsStream("turbines.cvs")))
-
-    // TODO: Implement events processing that sends alerts to the `alertsActor`
-
-    system.terminate()
+    // TODO: Implement events processing pipeline that sends alerts to the `alertsSink`
+    ???
   }
 }

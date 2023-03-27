@@ -2,6 +2,8 @@ package com.intertrust.protocol
 
 import java.time.Instant
 
-case class TurbineAlert(timestamp: Instant, turbineId: String, error: String)
+sealed trait Alert
 
-case class MovementAlert(timestamp: Instant, engineerId: String, error: String)
+case class TurbineAlert(timestamp: Instant, turbineId: String, error: String) extends Alert
+
+case class MovementAlert(timestamp: Instant, engineerId: String, error: String) extends Alert
