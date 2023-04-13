@@ -8,8 +8,8 @@ import scala.io.Source
 
 object Simulator extends ZIOAppDefault {
   override def run: ZIO[ZIOAppArgs with Scope, Any, Any] = {
-    val movementEvents = MovementEventStream.fromSource(Source.fromURL(getClass.getResource("movements.cvs")))
-    val turbineEvents = TurbineEventStream.fromSource(Source.fromURL(getClass.getResource("movements.cvs")))
+    val movementEvents = MovementEventStream.fromSource(Source.fromURL(getClass.getResource("/movements.csv")))
+    val turbineEvents = TurbineEventStream.fromSource(Source.fromURL(getClass.getResource("/turbines.csv")))
     val alertsSink = AlertsSink.console
 
     // TODO: Implement events processing pipeline that sends alerts to the `alertsSink`
