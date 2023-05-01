@@ -4,3 +4,8 @@ target
 .idea/*
 *.iml
 .DS_Store
+.bloop/
+.metals/
+.bsp/
+.projectile
+/project
